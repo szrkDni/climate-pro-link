@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SzakemberekRouteImport } from './routes/szakemberek'
 import { Route as KlimakIndexRouteImport } from './routes/klimak.index'
+import { Route as KlimakIdRouteImport } from './routes/klimak.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -28,34 +29,43 @@ const KlimakIndexRoute = KlimakIndexRouteImport.update({
   path: '/klimak/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const KlimakIdRoute = KlimakIdRouteImport.update({
+  id: '/klimak/$id',
+  path: '/klimak/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/szakemberek': typeof SzakemberekRoute
+  '/klimak/$id': typeof KlimakIdRoute
   '/klimak/': typeof KlimakIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/szakemberek': typeof SzakemberekRoute
+  '/klimak/$id': typeof KlimakIdRoute
   '/klimak': typeof KlimakIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/szakemberek': typeof SzakemberekRoute
+  '/klimak/$id': typeof KlimakIdRoute
   '/klimak/': typeof KlimakIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/szakemberek' | '/klimak/'
+  fullPaths: '/' | '/szakemberek' | '/klimak/$id' | '/klimak/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/szakemberek' | '/klimak'
-  id: '__root__' | '/' | '/szakemberek' | '/klimak/'
+  to: '/' | '/szakemberek' | '/klimak/$id' | '/klimak'
+  id: '__root__' | '/' | '/szakemberek' | '/klimak/$id' | '/klimak/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SzakemberekRoute: typeof SzakemberekRoute
+  KlimakIdRoute: typeof KlimakIdRoute
   KlimakIndexRoute: typeof KlimakIndexRoute
 }
 
@@ -82,12 +92,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KlimakIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/klimak/$id': {
+      id: '/klimak/$id'
+      path: '/klimak/$id'
+      fullPath: '/klimak/$id'
+      preLoaderRoute: typeof KlimakIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SzakemberekRoute: SzakemberekRoute,
+  KlimakIdRoute: KlimakIdRoute,
   KlimakIndexRoute: KlimakIndexRoute,
 }
 export const routeTree = rootRouteImport
