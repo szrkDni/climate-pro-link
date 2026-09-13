@@ -10,6 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BelepesRouteImport } from './routes/belepes'
+import { Route as RegisztracioRouteImport } from './routes/regisztracio'
 import { Route as SzakemberekRouteImport } from './routes/szakemberek'
 import { Route as KlimakIndexRouteImport } from './routes/klimak.index'
 import { Route as KlimakIdRouteImport } from './routes/klimak.$id'
@@ -17,6 +19,16 @@ import { Route as KlimakIdRouteImport } from './routes/klimak.$id'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BelepesRoute = BelepesRouteImport.update({
+  id: '/belepes',
+  path: '/belepes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RegisztracioRoute = RegisztracioRouteImport.update({
+  id: '/regisztracio',
+  path: '/regisztracio',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SzakemberekRoute = SzakemberekRouteImport.update({
@@ -37,12 +49,16 @@ const KlimakIdRoute = KlimakIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/belepes': typeof BelepesRoute
+  '/regisztracio': typeof RegisztracioRoute
   '/szakemberek': typeof SzakemberekRoute
   '/klimak/$id': typeof KlimakIdRoute
   '/klimak/': typeof KlimakIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/belepes': typeof BelepesRoute
+  '/regisztracio': typeof RegisztracioRoute
   '/szakemberek': typeof SzakemberekRoute
   '/klimak/$id': typeof KlimakIdRoute
   '/klimak': typeof KlimakIndexRoute
@@ -50,20 +66,43 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/belepes': typeof BelepesRoute
+  '/regisztracio': typeof RegisztracioRoute
   '/szakemberek': typeof SzakemberekRoute
   '/klimak/$id': typeof KlimakIdRoute
   '/klimak/': typeof KlimakIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/szakemberek' | '/klimak/$id' | '/klimak/'
+  fullPaths:
+    | '/'
+    | '/belepes'
+    | '/regisztracio'
+    | '/szakemberek'
+    | '/klimak/$id'
+    | '/klimak/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/szakemberek' | '/klimak/$id' | '/klimak'
-  id: '__root__' | '/' | '/szakemberek' | '/klimak/$id' | '/klimak/'
+  to:
+    | '/'
+    | '/belepes'
+    | '/regisztracio'
+    | '/szakemberek'
+    | '/klimak/$id'
+    | '/klimak'
+  id:
+    | '__root__'
+    | '/'
+    | '/belepes'
+    | '/regisztracio'
+    | '/szakemberek'
+    | '/klimak/$id'
+    | '/klimak/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BelepesRoute: typeof BelepesRoute
+  RegisztracioRoute: typeof RegisztracioRoute
   SzakemberekRoute: typeof SzakemberekRoute
   KlimakIdRoute: typeof KlimakIdRoute
   KlimakIndexRoute: typeof KlimakIndexRoute
@@ -76,6 +115,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/belepes': {
+      id: '/belepes'
+      path: '/belepes'
+      fullPath: '/belepes'
+      preLoaderRoute: typeof BelepesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/regisztracio': {
+      id: '/regisztracio'
+      path: '/regisztracio'
+      fullPath: '/regisztracio'
+      preLoaderRoute: typeof RegisztracioRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/szakemberek': {
@@ -104,6 +157,8 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BelepesRoute: BelepesRoute,
+  RegisztracioRoute: RegisztracioRoute,
   SzakemberekRoute: SzakemberekRoute,
   KlimakIdRoute: KlimakIdRoute,
   KlimakIndexRoute: KlimakIndexRoute,
