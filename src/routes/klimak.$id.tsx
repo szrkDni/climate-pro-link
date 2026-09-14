@@ -1,4 +1,5 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
+import { useCart } from "@/lib/cart";
 import { useMemo, useState } from "react";
 import { ArrowLeft, Check, ShieldCheck, Truck } from "lucide-react";
 import unit from "@/assets/klima-unit.png";
