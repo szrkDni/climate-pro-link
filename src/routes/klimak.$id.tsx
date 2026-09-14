@@ -1,4 +1,5 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
+import { useCart } from "@/lib/cart";
 import { useMemo, useState } from "react";
 import { ArrowLeft, Check, ShieldCheck, Truck } from "lucide-react";
 import unit from "@/assets/klima-unit.png";
@@ -34,6 +35,8 @@ export const Route = createFileRoute("/klimak/$id")({
 
 function ProductDetail() {
   const { product } = Route.useLoaderData();
+  const cart = useCart();
+  const navigate = useNavigate();
   const [withInstall, setWithInstall] = useState(true);
   const [region, setRegion] = useState("all");
   const [pro, setPro] = useState<Pro | null>(null);
@@ -114,7 +117,13 @@ function ProductDetail() {
                     </p>
                   )}
                 </div>
-                <button className="rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-soft transition-opacity hover:opacity-90">
+                <button
+                  onClick={() => {
+                    cart.add(product.id, withInstall ? (pro?.id ?? null) : null);
+                    navigate({ to: "/kosar" });
+                  }}
+                  className="rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-soft transition-opacity hover:opacity-90"
+                >
                   Kosárba teszem
                 </button>
               </div>

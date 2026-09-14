@@ -1,15 +1,20 @@
 import { Link } from "@tanstack/react-router";
-import { Snowflake, Menu } from "lucide-react";
+import { Snowflake, Menu, ShoppingBag, UserRound } from "lucide-react";
 import { useState, type ReactNode } from "react";
+import { useCart } from "@/lib/cart";
 
 const nav = [
   { to: "/", label: "Főoldal" },
   { to: "/klimak", label: "Klímák" },
   { to: "/szakemberek", label: "Szakemberek" },
+  { to: "/fiok", label: "Fiókom" },
 ] as const;
+
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const { count } = useCart();
+
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/80 backdrop-blur-xl">
@@ -36,11 +41,31 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-2">
           <Link
+            to="/kosar"
+            aria-label="Kosár"
+            className="relative inline-flex size-10 items-center justify-center rounded-full border border-border transition-colors hover:bg-secondary"
+          >
+            <ShoppingBag className="size-4.5" />
+            {count > 0 && (
+              <span className="absolute -right-1 -top-1 flex size-5 items-center justify-center rounded-full bg-primary text-[11px] font-medium text-primary-foreground">
+                {count}
+              </span>
+            )}
+          </Link>
+          <Link
+            to="/belepes"
+            aria-label="Bejelentkezés"
+            className="inline-flex size-10 items-center justify-center rounded-full border border-border transition-colors hover:bg-secondary"
+          >
+            <UserRound className="size-4.5" />
+          </Link>
+          <Link
             to="/klimak"
             className="hidden rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground shadow-soft transition-opacity hover:opacity-90 sm:inline-flex"
           >
             Klímák böngészése
           </Link>
+
           <button
             onClick={() => setOpen((v) => !v)}
             aria-label="Menü"

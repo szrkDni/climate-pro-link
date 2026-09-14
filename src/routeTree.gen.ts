@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BelepesRouteImport } from './routes/belepes'
+import { Route as FiokRouteImport } from './routes/fiok'
 import { Route as KosarRouteImport } from './routes/kosar'
 import { Route as PenztarRouteImport } from './routes/penztar'
 import { Route as RegisztracioRouteImport } from './routes/regisztracio'
@@ -26,6 +27,11 @@ const IndexRoute = IndexRouteImport.update({
 const BelepesRoute = BelepesRouteImport.update({
   id: '/belepes',
   path: '/belepes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FiokRoute = FiokRouteImport.update({
+  id: '/fiok',
+  path: '/fiok',
   getParentRoute: () => rootRouteImport,
 } as any)
 const KosarRoute = KosarRouteImport.update({
@@ -62,6 +68,7 @@ const KlimakIdRoute = KlimakIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/belepes': typeof BelepesRoute
+  '/fiok': typeof FiokRoute
   '/kosar': typeof KosarRoute
   '/penztar': typeof PenztarRoute
   '/regisztracio': typeof RegisztracioRoute
@@ -72,6 +79,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/belepes': typeof BelepesRoute
+  '/fiok': typeof FiokRoute
   '/kosar': typeof KosarRoute
   '/penztar': typeof PenztarRoute
   '/regisztracio': typeof RegisztracioRoute
@@ -83,6 +91,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/belepes': typeof BelepesRoute
+  '/fiok': typeof FiokRoute
   '/kosar': typeof KosarRoute
   '/penztar': typeof PenztarRoute
   '/regisztracio': typeof RegisztracioRoute
@@ -95,6 +104,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/belepes'
+    | '/fiok'
     | '/kosar'
     | '/penztar'
     | '/regisztracio'
@@ -105,6 +115,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/belepes'
+    | '/fiok'
     | '/kosar'
     | '/penztar'
     | '/regisztracio'
@@ -115,6 +126,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/belepes'
+    | '/fiok'
     | '/kosar'
     | '/penztar'
     | '/regisztracio'
@@ -126,6 +138,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BelepesRoute: typeof BelepesRoute
+  FiokRoute: typeof FiokRoute
   KosarRoute: typeof KosarRoute
   PenztarRoute: typeof PenztarRoute
   RegisztracioRoute: typeof RegisztracioRoute
@@ -148,6 +161,13 @@ declare module '@tanstack/react-router' {
       path: '/belepes'
       fullPath: '/belepes'
       preLoaderRoute: typeof BelepesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fiok': {
+      id: '/fiok'
+      path: '/fiok'
+      fullPath: '/fiok'
+      preLoaderRoute: typeof FiokRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/kosar': {
@@ -198,6 +218,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BelepesRoute: BelepesRoute,
+  FiokRoute: FiokRoute,
   KosarRoute: KosarRoute,
   PenztarRoute: PenztarRoute,
   RegisztracioRoute: RegisztracioRoute,
