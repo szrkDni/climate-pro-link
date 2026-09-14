@@ -114,7 +114,13 @@ function ProductDetail() {
                     </p>
                   )}
                 </div>
-                <button className="rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-soft transition-opacity hover:opacity-90">
+                <button
+                  onClick={() => {
+                    cart.add(product.id, withInstall ? (pro?.id ?? null) : null);
+                    navigate({ to: "/kosar" });
+                  }}
+                  className="rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground shadow-soft transition-opacity hover:opacity-90"
+                >
                   Kosárba teszem
                 </button>
               </div>
