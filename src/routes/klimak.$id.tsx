@@ -34,6 +34,8 @@ export const Route = createFileRoute("/klimak/$id")({
 
 function ProductDetail() {
   const { product } = Route.useLoaderData();
+  const cart = useCart();
+  const navigate = useNavigate();
   const [withInstall, setWithInstall] = useState(true);
   const [region, setRegion] = useState("all");
   const [pro, setPro] = useState<Pro | null>(null);
