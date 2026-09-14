@@ -1,12 +1,15 @@
 import { Link } from "@tanstack/react-router";
-import { Snowflake, Menu } from "lucide-react";
+import { Snowflake, Menu, ShoppingBag, UserRound } from "lucide-react";
 import { useState, type ReactNode } from "react";
+import { useCart } from "@/lib/cart";
 
 const nav = [
   { to: "/", label: "Főoldal" },
   { to: "/klimak", label: "Klímák" },
   { to: "/szakemberek", label: "Szakemberek" },
+  { to: "/fiok", label: "Fiókom" },
 ] as const;
+
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
